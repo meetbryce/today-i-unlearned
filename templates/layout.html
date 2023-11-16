@@ -1,12 +1,19 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="h-full">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/static/styles.css" rel="stylesheet">
-    <title>{% block title %}{% endblock %} | TIL</title>
+    <title>{% block title %}{% endblock %} • Today I Unlearned</title>
 </head>
-<body>
-{% block body %}{% endblock %}
+<body class="h-full">
+<header class="py-6 border-b mb-12">
+    <div class="container flex justify-center mx-auto">
+        <a href="/" class="font-semibold text-xl text-gray-900 hover:text-indigo-600">Today I Unlearned</a>
+    </div>
+</header>
+<main class="container mx-auto h-auto">
+    {% block body %}{% endblock %}
+</main>
 </body>
 </html>
