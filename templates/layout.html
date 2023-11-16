@@ -12,8 +12,24 @@
         <a href="/" class="font-semibold text-xl text-gray-900 hover:text-indigo-600">Today I Unlearned</a>
     </div>
 </header>
+{% if get_flashed_messages() %}
+    <aside class="py-4 sm:px-6 lg:px-8" id="js-message">
+        <div class="flex justify-center rounded-lg mb-8 -mt-12 gap-x-6 bg-gray-900 px-6 py-2.5 sm:px-3.5" role="alert">
+            <span class="flashing-message--placeholder"></span>
+            <span class="text-sm leading-6 font-semibold text-white">{{ get_flashed_messages() | join(" ") }}</span>
+            <button type="button" class="-m-3 flex-none p-3 ml-auto focus-visible:outline-offset-[-4px]"
+                    id="js-remove-message">
+                <span class="sr-only">Dismiss</span>
+                <svg class="h-5 w-5 text-white" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z"></path>
+                </svg>
+            </button>
+        </div>
+    </aside>
+{% endif %}
 <main class="container mx-auto h-auto">
     {% block body %}{% endblock %}
 </main>
+<script src="/static/script.js"></script>
 </body>
 </html>
