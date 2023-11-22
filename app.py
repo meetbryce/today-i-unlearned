@@ -33,14 +33,34 @@ def index_route():
 
 @app.route('/graduation-year/<year>', methods=["GET", "POST"])
 def year_route(year):
-    # todo: check the route is legit
+    # todo: check the year variable is legit
 
     lessons = db.execute('select id, content from lessons where year = ?', year)
 
     if not lessons:
         flash(f'Generating lessons for the class of {year}. Come back soon.')
 
+    # todo: indicate when vote already cast
+
     return render_template('year.html', year=year, lessons=lessons)
+
+
+@app.route('/vote/<year>/<lesson_id>', methods=["POST"])
+def vote_route(year, lesson_id):
+    is_upvote = bool(int(request.form.get('is_upvote')))
+
+    ip = request.environ.get('HTTP_X_FORWARDED_FOR')
+    if not ip:
+        ip = request.environ['REMOTE_ADDR']  # nb: in a test/local environment it will be 127.0.0.1
+
+    db.execute(
+        'INSERT INTO votes (is_upvote, user_ip, lesson_id) VALUES (?, ?, ?) '
+        'ON CONFLICT (user_ip, lesson_id) DO UPDATE SET is_upvote = ?',  # update existing if user already voted
+        is_upvote, ip, lesson_id, is_upvote)
+
+    flash(f'Thanks for your input! Your {"up" if is_upvote else "down"}vote was recorded.')
+
+    return redirect(f'/graduation-year/{year}')
 
 
 if __name__ == '__main__':

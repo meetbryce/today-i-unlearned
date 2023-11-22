@@ -20,14 +20,23 @@
                         </span>
                     </li>
                     <li>
-                        <button class="rounded-full bg-white px-2.5 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-                            👍
-                        </button>
+                        <form action="/vote/{{ year }}/{{ lesson.id }}" method="post">
+                            <button type="submit"
+                                    class="rounded-full bg-white px-2.5 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                                👍
+                            </button>
+                            <input type="hidden" name="is_upvote" value="1">
+                        </form>
                     </li>
+                    {# todo: indicate when vote already cast #}
                     <li>
-                        <button class="rounded-full bg-white px-2.5 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-                            👎
-                        </button>
+                        <form action="/vote/{{ year }}/{{ lesson.id }}" method="post">
+                            <button type="submit"
+                                    class="rounded-full bg-white px-2.5 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                                👎
+                            </button>
+                            <input type="hidden" name="is_upvote" value="0">
+                        </form>
                     </li>
                     <li>
                         <button class="rounded-full bg-white px-2.5 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
