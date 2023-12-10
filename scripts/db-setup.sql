@@ -1,11 +1,14 @@
 create table lessons
 (
     id         integer primary key autoincrement not null,
+    title      text                              not null,
     content    text                              not null,
-    year       integer                           not null,
+    start_year integer                           not null,
+    end_year   integer                           not null,
     created_dt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-create index year on "lessons" (year);
+create index start_year on "lessons" (start_year);
+create index end_year on "lessons" (end_year);
 
 create table votes
 (

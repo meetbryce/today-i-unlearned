@@ -35,7 +35,9 @@ def index_route():
 def year_route(year):
     # todo: check the year variable is legit
 
-    lessons = db.execute('select id, content from lessons where year = ?', year)
+    lessons = db.execute(
+        'select id, title, content from lessons where start_year <= ? and end_year >= ?', year, year)
+    # todo: order by usefulness
 
     if not lessons:
         flash(f'Generating lessons for the class of {year}. Come back soon.')
