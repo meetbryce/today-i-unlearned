@@ -21,15 +21,3 @@ create table votes
 );
 create unique index unique_user_lesson on "votes" (user_ip, lesson_id);
 create index lesson_id on "votes" (lesson_id);
-
-
--- CREATE TABLE 'transaction'
--- (
---     id      INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
---     user_id INTEGER                           NOT NULL,
---     symbol  TEXT                              NOT NULL,
---     cost    NUMERIC                           NOT NULL,
---     FOREIGN KEY (user_id) REFERENCES users (id)
--- );
--- CREATE UNIQUE INDEX id on "transaction" (id);
--- CREATE INDEX user_id on "transaction" (user_id);

@@ -37,10 +37,10 @@ def year_route(year):
 
     lessons = db.execute(
         'select id, title, content from lessons where start_year <= ? and end_year >= ?', year, year)
-    # todo: order by usefulness
+    # todo: calculate && order by usefulness
 
     if not lessons:
-        flash(f'Generating lessons for the class of {year}. Come back soon.')
+        flash(f'We are still collecting lessons for the class of {year}. Come back soon.')
 
     # todo: indicate when vote already cast
 

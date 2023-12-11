@@ -6,7 +6,7 @@
     <link href="/static/styles.css" rel="stylesheet">
     <title>{% block title %}{% endblock %} • Today I Unlearned</title>
 </head>
-<body class="h-full">
+<body class="flex flex-col h-full">
 <header class="py-6 border-b mb-12">
     <div class="container flex justify-center mx-auto">
         <a href="/" class="font-semibold text-xl text-gray-900 hover:text-indigo-600">Today I Unlearned</a>
@@ -30,6 +30,9 @@
 <main class="container mx-auto h-auto">
     {% block body %}{% endblock %}
 </main>
+<footer class="mt-auto border-t">
+    <div class="container mx-auto py-4 text-center text-gray-400 text-sm">Copyright &copy; Bryce York. All rights reserved.</div>
+</footer>
 {# todo: footer with popular years (for SEO) #}
 <script src="/static/script.js"></script>
 </body>
