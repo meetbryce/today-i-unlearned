@@ -80,5 +80,19 @@ def vote_route(year, lesson_id):
     return redirect(f'/graduation-year/{year}')
 
 
+@app.route('/lesson/<lesson_id>', methods=["GET", "POST"])
+def lesson_route(lesson_id):
+    if not lesson_id:
+        # todo: error
+        pass
+
+    if request.method == "POST":
+        # todo: capture the feedback
+        pass
+    else:
+        lesson = db.execute('select * from lessons where id = ?', lesson_id)[0]
+        return render_template('lesson.html', lesson=lesson)
+
+
 if __name__ == '__main__':
     app.run()
