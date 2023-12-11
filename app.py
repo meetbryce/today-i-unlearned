@@ -80,18 +80,28 @@ def vote_route(year, lesson_id):
     return redirect(f'/graduation-year/{year}')
 
 
-@app.route('/lesson/<lesson_id>', methods=["GET", "POST"])
+@app.route('/lesson/<lesson_id>', methods=["GET"])
 def lesson_route(lesson_id):
     if not lesson_id:
         # todo: error
         pass
 
+    lesson = db.execute('select * from lessons where id = ?', lesson_id)[0]
+    return render_template('lesson.html', lesson=lesson)
+
+
+@app.route('/lesson/<lesson_id>/feedback', methods=["GET", "POST"])
+def lesson_feedback_route(lesson_id):
+    if not lesson_id:
+        # todo: error
+        pass
+        #  or
     if request.method == "POST":
         # todo: capture the feedback
         pass
     else:
         lesson = db.execute('select * from lessons where id = ?', lesson_id)[0]
-        return render_template('lesson.html', lesson=lesson)
+        return render_template('lesson_feedback.html', lesson=lesson)
 
 
 if __name__ == '__main__':
