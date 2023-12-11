@@ -35,9 +35,24 @@ def index_route():
 def year_route(year):
     # todo: check the year variable is legit
 
-    lessons = db.execute(
-        'select id, title, content from lessons where start_year <= ? and end_year >= ?', year, year)
-    # todo: calculate && order by usefulness
+    lessons = db.execute('''
+        with lessons_and_votes as (select l.id,
+                                  title,
+                                  content,
+                                  case
+                                      when is_upvote = TRUE then 1
+                                      when is_upvote = FALSE then -1
+                                      else 0
+                                      end as vote
+                           from lessons l
+                                    left join main.votes v on l.id = v.lesson_id
+                           where start_year <= ?
+                             and end_year >= ?)
+        select id, title, content, sum(vote) + 37 as usefulness
+        from lessons_and_votes
+        group by 1, 2, 3
+        order by usefulness desc
+    ''', year, year)
 
     if not lessons:
         flash(f'We are still collecting lessons for the class of {year}. Come back soon.')
