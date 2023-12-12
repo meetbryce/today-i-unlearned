@@ -46,7 +46,7 @@ def year_route(year):
                                       end as vote
                            from lessons l
                                     left join main.votes v on l.id = v.lesson_id
-                           where start_year <= ?
+                           where published = true and start_year <= ?
                              and end_year >= ?)
         select id, title, content, sum(vote) + 37 as usefulness
         from lessons_and_votes
@@ -86,22 +86,59 @@ def lesson_route(lesson_id):
         # todo: error
         pass
 
-    lesson = db.execute('select * from lessons where id = ?', lesson_id)[0]
+    lesson = db.execute('select * from lessons where id = ? and published = true', lesson_id)[0]
+    # todo: 404 not found
     return render_template('lesson.html', lesson=lesson)
 
 
 @app.route('/lesson/<lesson_id>/feedback', methods=["GET", "POST"])
 def lesson_feedback_route(lesson_id):
     if not lesson_id:
-        # todo: error
+        # todo: error (must be a valid lesson_id from the database)
         pass
-        #  or
+
     if request.method == "POST":
-        # todo: capture the feedback
-        pass
+        feedback = request.form.get('feedback')
+        if not feedback:
+            lesson = db.execute('select * from lessons where id = ? and published = true', lesson_id)[0]
+            return render_template('lesson_feedback.html', lesson=lesson, error=True)
+
+        ip = request.environ.get('HTTP_X_FORWARDED_FOR')
+        if not ip:
+            ip = request.environ['REMOTE_ADDR']  # nb: in a test/local environment it will be 127.0.0.1
+
+        db.execute('INSERT INTO feedback (lesson_id, user_ip, feedback) VALUES (?, ?, ?)', lesson_id, ip, feedback)
+
+        return render_template('lesson_feedback_success.html')
     else:
         lesson = db.execute('select * from lessons where id = ?', lesson_id)[0]
         return render_template('lesson_feedback.html', lesson=lesson)
+
+
+@app.route('/suggest', methods=["GET", "POST"])
+def suggest_route():
+    if request.method == "POST":
+        title = request.form.get('title')
+        content = request.form.get('content')
+        start_year = request.form.get('start_year')
+        end_year = request.form.get('end_year')
+
+        if not (title and content and start_year and end_year):
+            # todo: handle errors
+            pass
+
+        # end year should be after start year
+        if not (end_year > start_year):
+            # todo: handle error
+            pass
+
+        # create the lesson with published = false
+        db.execute('insert into lessons (title, content, start_year, end_year, published) '
+                   'values (?, ?, ?, ?, false)', title, content, start_year, end_year)
+
+        return render_template('suggest_success.html', title=title, content=content,
+                               start_year=start_year, end_year=end_year)
+    return render_template('suggest.html')
 
 
 if __name__ == '__main__':

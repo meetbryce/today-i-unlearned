@@ -5,6 +5,7 @@ create table lessons
     content    text                              not null,
     start_year integer                           not null,
     end_year   integer                           not null,
+    published  boolean   default true            not null,
     created_dt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 create index start_year on "lessons" (start_year);
@@ -21,3 +22,13 @@ create table votes
 );
 create unique index unique_user_lesson on "votes" (user_ip, lesson_id);
 create index lesson_id on "votes" (lesson_id);
+
+create table feedback
+(
+    id         integer primary key autoincrement not null,
+    lesson_id  integer                           not null,
+    user_ip    string                            not null,
+    feedback   text                              not null,
+    created_dt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (lesson_id) REFERENCES lessons (id)
+);
