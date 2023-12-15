@@ -7,3 +7,5 @@
 
 ## Future ideas
 - “similar lessons” using [SQLite cosine distance & embeddings](https://youtu.be/ArnMdc-ICCM?si=0wtGVZ8CEUOKKDLP) from Simon Willison
+
+[//]: # (TODO: write full README - per the spec)

@@ -57,7 +57,7 @@ def year_route(year):
     if not lessons:
         flash(f'We are still collecting lessons for the class of {year}. Come back soon.')
 
-    # todo: indicate when vote already cast
+    # todo: indicate when vote already cast (subquery with `user_ip` ??)
 
     return render_template('year.html', year=year, lessons=lessons)
 
