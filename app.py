@@ -9,6 +9,11 @@ app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 db = SQL("sqlite:///tiu.db")
 
 
+@app.errorhandler(404)
+def not_found_handler(e):
+    return render_template('404.html'), 404
+
+
 @app.route('/', methods=["GET", "POST"])
 def index_route():
     if request.method == "POST":
