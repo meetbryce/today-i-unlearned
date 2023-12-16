@@ -24,17 +24,20 @@
                     <li>
                         <form action="/vote/{{ year }}/{{ lesson.id }}" method="post">
                             <button type="submit"
-                                    class="rounded-full bg-white px-2.5 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                                    class="rounded-full bg-white px-2.5 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-80 disabled:bg-indigo-100"
+                                    {% if lesson.id in up_voted %}title="You have already upvoted this lesson" disabled{% endif %}
+                            >
                                 👍
                             </button>
                             <input type="hidden" name="is_upvote" value="1">
                         </form>
                     </li>
-                    {# todo: indicate when vote already cast #}
                     <li>
                         <form action="/vote/{{ year }}/{{ lesson.id }}" method="post">
                             <button type="submit"
-                                    class="rounded-full bg-white px-2.5 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                                    class="rounded-full bg-white px-2.5 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-80 disabled:bg-indigo-100"
+                                    {% if lesson.id in down_voted %}title="You have already downvoted this lesson" disabled{% endif %}
+                            >
                                 👎
                             </button>
                             <input type="hidden" name="is_upvote" value="0">

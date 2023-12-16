@@ -57,9 +57,15 @@ def year_route(year):
     if not lessons:
         flash(f'We are still collecting lessons for the class of {year}. Come back soon.')
 
-    # todo: indicate when vote already cast (subquery with `user_ip` ??)
+    # get the user's votes, so we can show votes that have already been cast
+    ip = request.environ.get('HTTP_X_FORWARDED_FOR')
+    if not ip:
+        ip = request.environ['REMOTE_ADDR']  # nb: in a test/local environment it will be 127.0.0.1
+    votes_by_user = db.execute('select lesson_id, is_upvote from votes where user_ip = ?', ip)
+    up_voted = [vote["lesson_id"] for vote in votes_by_user if vote["is_upvote"]]
+    down_voted = [vote["lesson_id"] for vote in votes_by_user if not vote["is_upvote"]]
 
-    return render_template('year.html', year=year, lessons=lessons)
+    return render_template('year.html', year=year, lessons=lessons, up_voted=up_voted, down_voted=down_voted)
 
 
 @app.route('/vote/<year>/<lesson_id>', methods=["POST"])
