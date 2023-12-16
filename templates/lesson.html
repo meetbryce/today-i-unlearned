@@ -10,13 +10,14 @@
         <p class="text-lg mb-1">{{ lesson.content }}</p>
     </div>
 
-    <div class="mt-12 mx-auto max-w-3xl text-center">
+    <div class="mt-12 mx-auto max-w-3xl mb-10 text-center">
         <h2 class="text-2xl font-bold tracking-tight text-gray-900 mb-2 sm:text-4xl">This is Today I Unlearned</h2>
         <p class="mb-2 text-xl leading-8 text-gray-600">The place to unlearn all the incorrect things you were
             taught at school.</p>
         <p class="text-base font-semibold leading-7 text-indigo-600 mb-4">Enter the year you graduated to see
             more lessons like this one!</p>
         <form method="post" action="/" class="flex justify-center mx-auto">
+            {# fixme: mobile layout needs fixing #}
             <div class="w-1/2">
                 <input type="number" name="year"
                        class="block text-center text-base w-full rounded-l-full border-0 pl-3 pr-2 py-2.5
