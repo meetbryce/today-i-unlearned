@@ -14,32 +14,61 @@ def not_found_handler(e):
     return render_template('404.html'), 404
 
 
+@app.errorhandler(400)
+def bad_request_handler(e):
+    return render_template('400.html'), 400
+
+
 @app.route('/', methods=["GET", "POST"])
 def index_route():
+    today = datetime.date.today()
+
     if request.method == "POST":
-        year = int(request.form.get('year'))
+        try:
+            year = int(request.form.get('year'))
+        except ValueError:
+            return abort(400)
+
         # check the user entered a year
         if not year:
             flash('Please enter the year you graduated')
-            return render_template('index.html')
+            return render_template('index.html', max_year=today.year)
 
         # only accept years before this one! (might go further back depending on lesson quality)
-        today = datetime.date.today()
         if year >= today.year:
-            flash("Please put a past year, we aren't in the business of making predictions!")
-            return render_template('index.html')
+            flash("Please enter a past year, we aren't in the business of making predictions!")
+            return render_template('index.html', max_year=today.year)
 
-        # todo: check the year isn't too far back!
+        # don't accept years that are too far back
+        if year < 1900:
+            flash("Sorry, you can't go further back than 1900 right now.")
+            return render_template('index.html', max_year=today.year)
 
         return redirect(f'/graduation-year/{year}')
 
-    return render_template('index.html')
+    return render_template('index.html', max_year=today.year)
 
 
 @app.route('/graduation-year/<year>', methods=["GET", "POST"])
 def year_route(year: int):
-    # todo: check the year variable is legit
+    # check the year variable is an integer
+    try:
+        year = int(year)
+    except ValueError:
+        return abort(404)
 
+    # reject any requests for future years
+    today = datetime.date.today()
+    if year >= today.year:
+        flash("Please enter a past year, we aren't in the business of making predictions!")
+        return abort(404)
+
+    # don't accept years that are too far back
+    if year < 1900:
+        flash("Sorry, you can't go further back than 1900 right now.")
+        return abort(404)
+
+    # get all published lessons and calculate their usefulness based on any & all associated Votes
     lessons = db.execute('''
         with lessons_and_votes as (select l.id,
                                   title,
@@ -66,6 +95,8 @@ def year_route(year: int):
     ip = request.environ.get('HTTP_X_FORWARDED_FOR')
     if not ip:
         ip = request.environ['REMOTE_ADDR']  # nb: in a test/local environment it will be 127.0.0.1
+
+    # get and split all votes made with the current IP show we can show them in the UI
     votes_by_user = db.execute('select lesson_id, is_upvote from votes where user_ip = ?', ip)
     up_voted = [vote["lesson_id"] for vote in votes_by_user if vote["is_upvote"]]
     down_voted = [vote["lesson_id"] for vote in votes_by_user if not vote["is_upvote"]]
@@ -75,12 +106,17 @@ def year_route(year: int):
 
 @app.route('/vote/<year>/<lesson_id>', methods=["POST"])
 def vote_route(year, lesson_id):
-    is_upvote = bool(int(request.form.get('is_upvote')))
+    # check we have a valid is_upvote
+    try:
+        is_upvote = bool(int(request.form.get('is_upvote')))
+    except ValueError:
+        return abort(400)
 
     ip = request.environ.get('HTTP_X_FORWARDED_FOR')
     if not ip:
         ip = request.environ['REMOTE_ADDR']  # nb: in a test/local environment it will be 127.0.0.1
 
+    # upsert the vote
     db.execute(
         'INSERT INTO votes (is_upvote, user_ip, lesson_id) VALUES (?, ?, ?) '
         'ON CONFLICT (user_ip, lesson_id) DO UPDATE SET is_upvote = ?',  # update existing if user already voted
