@@ -7,5 +7,7 @@
 
 ## Future ideas
 - “similar lessons” using [SQLite cosine distance & embeddings](https://youtu.be/ArnMdc-ICCM?si=0wtGVZ8CEUOKKDLP) from Simon Willison
+- leverage an LLM to generate additional content
+- generate compelling OG Images to drive click-through rates
 
 [//]: # (TODO: write full README - per the spec)
