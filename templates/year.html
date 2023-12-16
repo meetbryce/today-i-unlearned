@@ -6,7 +6,6 @@
     <h1 class="font-bold text-4xl mb-4 text-center">Class of {{ year }} • Today I Unlearned</h1>
     <h2 class="text-xl mb-6 text-gray-900 text-center">See the lessons below to unlearn the things you were probably
         taught and school but were later discovered to be incorrect.</h2>
-            {# todo: fix midsized layout & check mobile #}
     <div class="grid lg:grid-cols-2 lg:gap-8 gap-4 my-8 mb-12">
         {% for lesson in lessons %}
             <div class="rounded-md border p-4 my-2 flex flex-col h-full">
@@ -25,7 +24,8 @@
                         <form action="/vote/{{ year }}/{{ lesson.id }}" method="post">
                             <button type="submit"
                                     class="rounded-full bg-white px-2.5 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-80 disabled:bg-indigo-100"
-                                    {% if lesson.id in up_voted %}title="You have already upvoted this lesson" disabled{% endif %}
+                                    {% if lesson.id in up_voted %}title="You have already upvoted this lesson"
+                                    disabled{% endif %}
                             >
                                 👍
                             </button>
@@ -36,7 +36,8 @@
                         <form action="/vote/{{ year }}/{{ lesson.id }}" method="post">
                             <button type="submit"
                                     class="rounded-full bg-white px-2.5 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-80 disabled:bg-indigo-100"
-                                    {% if lesson.id in down_voted %}title="You have already downvoted this lesson" disabled{% endif %}
+                                    {% if lesson.id in down_voted %}title="You have already downvoted this lesson"
+                                    disabled{% endif %}
                             >
                                 👎
                             </button>
@@ -44,13 +45,15 @@
                         </form>
                     </li>
                     <li>
-                        <a href="/lesson/{{ lesson.id }}" class="inline-block rounded-full bg-white px-2.5 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                        <a href="/lesson/{{ lesson.id }}"
+                           class="inline-block rounded-full bg-white px-2.5 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
                             Share
                         </a>
                         {# todo: onClick() copy link to clipboard (and flash accordingly) #}
                     </li>
                     <li>
-                        <a href="/lesson/{{ lesson.id }}/feedback" class="inline-block rounded-full bg-white px-2.5 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                        <a href="/lesson/{{ lesson.id }}/feedback"
+                           class="inline-block rounded-full bg-white px-2.5 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
                             Provide Feedback
                         </a>
                     </li>
