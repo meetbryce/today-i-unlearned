@@ -2,7 +2,8 @@
 
 {% block title %}Thank You For Your Feedback{% endblock %}
 
-{# TODO: hide from the google bots #}
+{# hide from the google bots #}
+{% block head %}<meta name="robots" content="noindex">{% endblock %}
 
 {% block body %}
     <h1 class="text-4xl text-center mb-5">Thank you for your feedback!</h1>

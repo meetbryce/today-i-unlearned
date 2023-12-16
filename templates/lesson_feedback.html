@@ -2,7 +2,8 @@
 
 {% block title %}Provide Feedback • {{ lesson.title }}{% endblock %}
 
-{# TODO: hide from the google bots #}
+{# hide from the google bots #}
+{% block head %}<meta name="robots" content="noindex">{% endblock %}
 
 {% block body %}
     <h2 class="text-4xl text-center mb-5">Lesson Feedback</h2>
