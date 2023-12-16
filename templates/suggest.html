@@ -9,7 +9,7 @@
             <div class="mb-5">
                 <label for="title" class="block text-sm font-medium leading-6 text-gray-900">Lesson Title</label>
                 <div class="mt-2">
-                    <input type="text" name="title" id="title"
+                    <input type="text" name="title" id="title" value="{{ title }}"
                            class="block w-full rounded-full border-0 px-3.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                            placeholder="e.g. Knuckle cracking doesn't cause arthritis"
                            aria-describedby="title-description" required>
@@ -20,7 +20,7 @@
             <div class="max-w-lg mb-5">
                 <label for="start_year" class="block text-sm font-medium leading-6 text-gray-900">Start Year</label>
                 <div class="mt-2 max-w-xs">
-                    <input type="number" name="start_year" id="start_year" min="0" max="2023"
+                    <input type="number" name="start_year" id="start_year" min="0" max="2023" value="{{ start_year }}"
                            class="block w-full rounded-full border-0 px-3.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                            placeholder="e.g. 1960" aria-describedby="start_year-description" required>
                 </div>
@@ -30,7 +30,7 @@
             <div class="max-w-lg mb-5">
                 <label for="end_year" class="block text-sm font-medium leading-6 text-gray-900">End Year</label>
                 <div class="mt-2 max-w-xs">
-                    <input type="number" name="end_year" id="end_year" min="0" max="2030"
+                    <input type="number" name="end_year" id="end_year" min="0" max="2030" value="{{ end_year }}"
                            class="block w-full rounded-full border-0 px-3.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                            placeholder="e.g. 1990" aria-describedby="end_year-description" required>
                 </div>
@@ -43,7 +43,7 @@
                     <textarea rows="6" name="content" id="content"
                               class="block w-full rounded-md border-0 px-3.5 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                               placeholder="Things and stuff..." aria-describedby="content-description"
-                              required></textarea>
+                              required>{% if content %}{{ content }}{% endif %}</textarea>
                 </div>
                 <p class="mt-2 text-sm text-gray-500" id="content-description">Explain the facts of the situation and
                     how they differ from what was taught.</p>

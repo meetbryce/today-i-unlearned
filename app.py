@@ -171,13 +171,15 @@ def suggest_route():
         end_year = request.form.get('end_year')
 
         if not (title and content and start_year and end_year):
-            # todo: handle errors
-            pass
+            flash('Please ensure all fields are filled in.')
+            return render_template('suggest.html', title=title, content=content, start_year=start_year,
+                                   end_year=end_year)
 
         # end year should be after start year
         if not (end_year > start_year):
-            # todo: handle error
-            pass
+            flash('Please ensure your start year is before your end year!')
+            return render_template('suggest.html', title=title, content=content, start_year=start_year,
+                                   end_year=end_year)
 
         # create the lesson with published = false
         db.execute('insert into lessons (title, content, start_year, end_year, published) '
