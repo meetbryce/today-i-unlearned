@@ -1,7 +1,7 @@
 import datetime
 
 from cs50 import SQL
-from flask import Flask, render_template, request, flash, redirect
+from flask import Flask, render_template, request, flash, redirect, abort
 
 app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
@@ -32,7 +32,7 @@ def index_route():
 
 
 @app.route('/graduation-year/<year>', methods=["GET", "POST"])
-def year_route(year):
+def year_route(year: int):
     # todo: check the year variable is legit
 
     lessons = db.execute('''
@@ -87,26 +87,23 @@ def vote_route(year, lesson_id):
 
 
 @app.route('/lesson/<lesson_id>', methods=["GET"])
-def lesson_route(lesson_id):
-    if not lesson_id:
-        # todo: error
-        pass
-
-    lesson = db.execute('select * from lessons where id = ? and published = true', lesson_id)[0]
-    # todo: 404 not found
+def lesson_route(lesson_id: int):
+    try:
+        lesson = db.execute('select * from lessons where id = ? and published = true', lesson_id)[0]
+    except IndexError:
+        abort(404)
     return render_template('lesson.html', lesson=lesson)
 
 
 @app.route('/lesson/<lesson_id>/feedback', methods=["GET", "POST"])
-def lesson_feedback_route(lesson_id):
-    if not lesson_id:
-        # todo: error (must be a valid lesson_id from the database)
-        pass
-
+def lesson_feedback_route(lesson_id: int):
     if request.method == "POST":
         feedback = request.form.get('feedback')
         if not feedback:
-            lesson = db.execute('select * from lessons where id = ? and published = true', lesson_id)[0]
+            try:
+                lesson = db.execute('select * from lessons where id = ? and published = true', lesson_id)[0]
+            except IndexError:
+                abort(404)
             return render_template('lesson_feedback.html', lesson=lesson, error=True)
 
         ip = request.environ.get('HTTP_X_FORWARDED_FOR')
@@ -117,7 +114,10 @@ def lesson_feedback_route(lesson_id):
 
         return render_template('lesson_feedback_success.html')
     else:
-        lesson = db.execute('select * from lessons where id = ?', lesson_id)[0]
+        try:
+            lesson = db.execute('select * from lessons where id = ? and published = true', lesson_id)[0]
+        except IndexError:
+            abort(404)
         return render_template('lesson_feedback.html', lesson=lesson)
 
 
