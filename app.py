@@ -3,7 +3,7 @@ import datetime
 from cs50 import SQL
 from flask import Flask, render_template, request, flash, redirect, abort
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/')
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 db = SQL("sqlite:///tiu.db")
