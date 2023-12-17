@@ -49,7 +49,7 @@ def index_route():
     return render_template('index.html', max_year=today.year)
 
 
-@app.route('/graduation-year/<year>', methods=["GET", "POST"])
+@app.route('/graduation-year/<year>', methods=["GET"])
 def year_route(year: int):
     # check the year variable is an integer
     try:
@@ -144,7 +144,7 @@ def lesson_feedback_route(lesson_id: int):
             try:
                 lesson = db.execute('select * from lessons where id = ? and published = true', lesson_id)[0]
             except IndexError:
-                abort(404)
+                abort(400)
             return render_template('lesson_feedback.html', lesson=lesson, error=True)
 
         ip = request.environ.get('HTTP_X_FORWARDED_FOR')
