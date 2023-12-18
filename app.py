@@ -182,6 +182,8 @@ def lesson_feedback_route(lesson_id: int):
     """
     if request.method == "POST":
         feedback = request.form.get('feedback')
+
+        # if the lesson doesn't exit, throw a 400 error since the user is posting 'bad' data
         if not feedback:
             try:
                 lesson = db.execute('select * from lessons where id = ? and published = true', lesson_id)[0]
@@ -197,6 +199,7 @@ def lesson_feedback_route(lesson_id: int):
 
         return render_template('lesson_feedback_success.html')
     else:
+        # if the lesson doesn't exit, throw a 404 error since this is a page request not a POST
         try:
             lesson = db.execute('select * from lessons where id = ? and published = true', lesson_id)[0]
         except IndexError:
@@ -219,6 +222,7 @@ def suggest_route():
         start_year = request.form.get('start_year')
         end_year = request.form.get('end_year')
 
+        # all fields are required, treat as an error if any are missing
         if not (title and content and start_year and end_year):
             flash('Please ensure all fields are filled in.')
             return render_template('suggest.html', title=title, content=content, start_year=start_year,
