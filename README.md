@@ -8,7 +8,36 @@
 
 ### Description
 
-[//]: # (TODO: write multi-paragraph description of the project)
+Today I Unlearned is a site intended to help solve the problem of things being taught in school later turning out to be
+incorrect. It provides a place for people to unlearn things that were taught incorrectly based on the year they finished
+school.
+
+This idea was inspired by the many, many threads on Reddit asking people to list things they learned in school that they
+have since learned to be false. These posts have been incredibly popular indicating that people might value a site like
+Today I Unlearned (examples listed below). I've also seen a number of memes calling for a site like this e.g. "Website
+idea: you input the year you graduated from high school and the website generates a list of outdated "facts" and
+concepts you were taught in school that have since been disproven" based on
+a [tweet](https://twitter.com/ericnakagawa/status/1335833653738258434) from 2020 with 20k likes!
+
+Today I Unlearned provides a place not only to unlearn, but also to upvote/downvote lessons based on your own
+experience, provide feedback on existing lessons, and even suggest your own lessons too!
+
+Some of the many Reddit threads trying to meet this need:
+
+* ["What’s a fact that was taught in school that’s been disproven in your lifetime?"](https://www.reddit.com/r/AskReddit/comments/1789w9u/whats_a_fact_that_was_taught_in_school_thats_been/),
+  Oct 2023, 11.8k comments, 12.6k karma
+* ["What were the 'facts' you learned in school, that are no longer true?"](https://www.reddit.com/r/AskReddit/comments/69dex7/what_were_the_facts_you_learned_in_school_that/),
+  May 2017, 30.6k comments, 30.7k karma
+* ["What was a fact taught to you in school that has been disproven in your lifetime?"](https://www.reddit.com/r/AskReddit/comments/6wiqew/what_was_a_fact_taught_to_you_in_school_that_has/),
+  Aug 2017, 25.3k comments, 29.5k karma
+* ["What did you learn in Elementary school that turned out to be false/ a lie when you reached adulthood?"](https://www.reddit.com/r/AskReddit/comments/sy3qke/what_did_you_learn_in_elementary_school_that/),
+  Feb 2022, 14.2k comments, 27.5k karma
+* ["What did you learn in school that turned out to be absolutely useless?"](https://www.reddit.com/r/AskReddit/comments/m0nvnq/what_did_you_learn_in_school_that_turned_out_to/),
+  Mar 2021, 315 comments, 74 karma
+* ["What's something you learned in school that was false?"](https://www.reddit.com/r/AskReddit/comments/2feflc/whats_something_you_learned_in_school_that_was/),
+  Sep 2014, 547 comments, 139 karma
+* ["What was the most harmful thing you were taught in school?"](https://www.reddit.com/r/AskReddit/comments/3pwj65/what_was_the_most_harmful_thing_you_were_taught/),
+  Oct 2015, 1.1k comments, 500 karma
 
 ## Code & Architecture
 
@@ -78,7 +107,8 @@ Google and as a way for users to directly share an individual lesson with others
 ### `templates/lesson_feedback.html`
 
 This page allows the user to provide any feedback they have about a given lesson. The full lesson is shown on the page
-so that the user can easily reference it when providing their feedback.
+so that the user can easily reference it when providing their feedback. The title of the lesson is included to maintain
+continuity in context while the user writes their feedback.
 
 ### `templates/lesson_feedback_success.html`
 
@@ -115,11 +145,38 @@ quite basic, but I did add and install the 'forms' plugin.
 
 ### `app.py`
 
-[//]: # (todo)
+This is the core of the application backend.
+
+* `not_found_handler()` allows us to use our custom 404 error page anytime a 404 error occurs
+* `bad_request_handler()` allows us to use our custom 400 error page anytime a 400 error occurs
+* `index_route()` renders the index template and processes the post request from any "enter the year you graduated"
+  forms. It checks the year provided is valid (mostly as a backup to the client-side validation of the same rules) and
+  provides helpful error messages using the flashing system.
+* `year_route()` renders the year template. Checks the year is valid (mostly as a backup to the client-side validation
+  of the same rules) and throws a 404 error if it is invalid. For a valid year, we fetch the lessons joined with votes
+  to calculate the Usefulness Score (details below). If there are no lessons found, we render a message using the
+  flashing system. We then get the user's IP address (with a fallback for local/dev contexts). We then use the IP
+  address to get all votes cast with that IP address (used to indicate in the UI whether a vote has been cast). To avoid
+  extra SQL requests (which may be slow), we pull all votes and then filter them into upvotes and downvotes in python.
+* `vote_route()` accepts votes from the frontend with safety checks that throw a 400 error if they don't succeed. As
+  above, we get the user IP with a fallback method for local development. We then upsert the vote into the database and
+  render a flashed message
+* `lesson_route()` checks that a lesson with the provided ID exists and is published. If so, it's rendered. Otherwise, a
+  404 error is thrown.
+* `lesson_feedback_route()` renders the feedback form when the URL is loaded normally, also captures and processes the
+  form data when POSTed to. Checks the form data is valid (providing flashed messages if the data is invalid), gets the
+  user IP and stores both in the database in the `feedback` table before rendering the success page to the user.
+* `suggest_route()` renders the suggest a lesson form when the URL is loaded normally, also captures and processes the
+  form data when POSTed to. Checks the form data is valid (providing flashed messages if the data is invalid) and then
+  stores it in the database in the `lessons` table (with `published=false` so it isn't shown to users without being
+  reviewed by an admin) before rendering the success page to the user.
 
 #### Usefulness Score
 
-[//]: # (todo)
+The usefulness score is based on a simple algorithm to help provide a vote-informed score that's also intuitive, even
+without many (or even any) votes. As the site scales and sees more votes, it may make sense to improve the algorithm,
+but this should work for a long while. The method is to take a base usefulness score of 37, add 1 for each upvote, and
+subtract 1 for each downvote.
 
 ### `requirements.txt`
 
@@ -142,8 +199,6 @@ running `pip install -r requirements.txt`
 
 ## Tasks
 
-[//]: # (TODO: write full README - per the spec)
-
 [//]: # (TODO: walkthru video - up to 3mins Your video should somehow include your project’s title, your name, 
           your city and country, and any other details that you’d like to convey to viewers.)
 
@@ -159,14 +214,16 @@ running `pip install -r requirements.txt`
 
 [//]: # (TODO: dark mode?)
 
-[//]: # (TODO: sitemap.xml ??)
+[//]: # (TODO: sitemap.xml => https://github.com/h-janes/flask-sitemapper/wiki/Usage#recommended-method)
 
-[//]: # (TODO: make the aesthetic more education-y)
+[//]: # (TODO: make the aesthetic more education-y => https://arc.net/folder/2B6B7588-BF29-476E-B839-DB4842C2C93C)
 
 ## Future ideas
 
-- “similar lessons” using [SQLite cosine distance & embeddings](https://youtu.be/ArnMdc-ICCM?si=0wtGVZ8CEUOKKDLP) from
-  Simon Willison
+- make the aesthetic more education-y => https://arc.net/folder/2B6B7588-BF29-476E-B839-DB4842C2C93C
+- “similar lessons” via Scott Willison's SQLite cosine distance &
+  embeddings [link](https://youtu.be/ArnMdc-ICCM?si=0wtGVZ8CEUOKKDLP)
 - leverage an LLM to generate additional content
 - generate compelling OG Images to drive click-through rates
 - extend the footer with links to popular years for SEO purposes
+- generate illustrations using stable diffusion to help make the site more visually engaging
