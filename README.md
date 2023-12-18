@@ -204,23 +204,13 @@ running `pip install -r requirements.txt`
 
 [//]: # (TODO: ensure the layout is fully responsive)
 
-[//]: # (TODO: ensure no unhandled error cases)
-
-[//]: # (TODO: check I've sufficiently commented the code... DOCSTRINGS!)
-
-[//]: # (TODO: unit tests?)
-
-[//]: # (TODO: Beam / Fathom analytics?)
-
-[//]: # (TODO: dark mode?)
-
-[//]: # (TODO: sitemap.xml => https://github.com/h-janes/flask-sitemapper/wiki/Usage#recommended-method)
-
-[//]: # (TODO: make the aesthetic more education-y => https://arc.net/folder/2B6B7588-BF29-476E-B839-DB4842C2C93C)
-
 ## Future ideas
 
 - make the aesthetic more education-y => https://arc.net/folder/2B6B7588-BF29-476E-B839-DB4842C2C93C
+- dark mode
+- generate sitemap.xml for SEO purposes => https://github.com/h-janes/flask-sitemapper/wiki/Usage#recommended-method
+- explicitly define OG meta tags (etc.) so links always look great on social media
+- add Fathom or Beam Analytics to keep track of actual user behavior
 - “similar lessons” via Scott Willison's SQLite cosine distance &
   embeddings [link](https://youtu.be/ArnMdc-ICCM?si=0wtGVZ8CEUOKKDLP)
 - leverage an LLM to generate additional content
