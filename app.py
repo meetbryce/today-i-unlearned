@@ -11,16 +11,33 @@ db = SQL("sqlite:///tiu.db")
 
 @app.errorhandler(404)
 def not_found_handler(e):
+    """
+    404 error handler - allows us to use our custom 404 error page anytime a 404 error occurs
+    :param e:
+    :return:
+    """
     return render_template('404.html'), 404
 
 
 @app.errorhandler(400)
 def bad_request_handler(e):
+    """
+    400 error handler - allows us to use our custom 400 error page anytime a 400 error occurs
+    :param e:
+    :return:
+    """
     return render_template('400.html'), 400
 
 
 @app.route('/', methods=["GET", "POST"])
 def index_route():
+    """
+    Index route -- renders the index template and processes the post request from any "enter the year you graduated"
+    forms. It checks the year provided is valid (mostly as a backup to the client-side validation of the same rules)
+    and provides helpful error messages using the flashing system.
+
+    :return:
+    """
     today = datetime.date.today()
 
     if request.method == "POST":
@@ -51,6 +68,11 @@ def index_route():
 
 @app.route('/graduation-year/<year>', methods=["GET"])
 def year_route(year: int):
+    """
+    Year route -- renders the year template and processes the post request from any "enter the year you graduated"
+    :param year:
+    :return:
+    """
     # check the year variable is an integer
     try:
         year = int(year)
@@ -106,6 +128,12 @@ def year_route(year: int):
 
 @app.route('/vote/<year>/<lesson_id>', methods=["POST"])
 def vote_route(year, lesson_id):
+    """
+    Vote route -- processes the post request from any "upvote" or "downvote" buttons
+    :param year:
+    :param lesson_id:
+    :return:
+    """
     # check we have a valid is_upvote
     try:
         is_upvote = bool(int(request.form.get('is_upvote')))
@@ -129,6 +157,12 @@ def vote_route(year, lesson_id):
 
 @app.route('/lesson/<lesson_id>', methods=["GET"])
 def lesson_route(lesson_id: int):
+    """
+    Lesson route -- renders the lesson template unless the lesson is not published or doesn't exist, in which case it
+    returns a 404
+    :param lesson_id:
+    :return:
+    """
     try:
         lesson = db.execute('select * from lessons where id = ? and published = true', lesson_id)[0]
     except IndexError:
@@ -138,6 +172,14 @@ def lesson_route(lesson_id: int):
 
 @app.route('/lesson/<lesson_id>/feedback', methods=["GET", "POST"])
 def lesson_feedback_route(lesson_id: int):
+    """
+    Lesson feedback route -- renders the feedback form when the URL is loaded normally, also captures and processes
+    the form data when POSTed to. Checks the form data is valid (providing flashed messages if the data is invalid),
+    gets the user IP and stores both in the database in the `feedback` table before rendering the success page to the
+    user.
+    :param lesson_id:
+    :return:
+    """
     if request.method == "POST":
         feedback = request.form.get('feedback')
         if not feedback:
@@ -164,6 +206,13 @@ def lesson_feedback_route(lesson_id: int):
 
 @app.route('/suggest', methods=["GET", "POST"])
 def suggest_route():
+    """
+    Suggest route -- renders the suggest a lesson form when the URL is loaded normally, also captures and processes
+    the form data when POSTed to. Checks the form data is valid (providing flashed messages if the data is invalid)
+    and then stores it in the database in the `lessons` table (with `published=false` so it isn't shown to users
+    without being reviewed by an admin) before rendering the success page to the user.
+    :return:
+    """
     if request.method == "POST":
         title = request.form.get('title')
         content = request.form.get('content')
