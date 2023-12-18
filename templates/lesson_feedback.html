@@ -15,7 +15,7 @@
             your feedback about "<em>{{ lesson.title }}</em>"</label>
         <div class="mt-2">
             <textarea rows="4" name="feedback" id="feedback"
-                      class="{% if error %}ring-red-300{% endif %} block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      class="{% if error %}ring-red-300{% endif %} block w-full rounded-2xl border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       required></textarea>
         </div>
         <div class="mt-2 flex justify-end">
@@ -26,7 +26,7 @@
         </div>
     </form>
 
-    <div class="mx-auto max-w-4xl rounded-md border p-4 my-2 flex flex-col mb-10">
+    <div class="mx-auto max-w-4xl rounded-2xl border p-4 my-2 flex flex-col mb-10">
         <h1 class="text-lg font-bold mb-1">Did you know that... {{ lesson.title }}</h1>
         <p class="mb-2 text-sm italic">Between approximately {{ lesson.start_year }} and {{ lesson.end_year }}, this
             wasn't
