@@ -167,6 +167,9 @@ def lesson_route(lesson_id: int):
         lesson = db.execute('select * from lessons where id = ? and published = true', lesson_id)[0]
     except IndexError:
         abort(404)
+    # if the share button copied the URL to the clipboard, notify the user
+    if 'share' in request.args:
+        flash('A link to this page has been copied to your clipboard, ready to share! (They won\'t see this message.)')
     return render_template('lesson.html', lesson=lesson)
 
 

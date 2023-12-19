@@ -71,7 +71,9 @@ messages.
 
 ### `static/script.js`
 
-This script allows the user to dismiss the flashed message.
+1. This script allows the user to dismiss the flashed message.
+2. This script copies the URL for a lesson to the clipboard when its share button is pressed. If browser doesn't support
+   copy to clipboard ([unlikely](https://caniuse.com/mdn-api_clipboard_writetext)) -- don't do it
 
 ### `templates/400.html`
 
@@ -162,7 +164,8 @@ This is the core of the application backend.
   above, we get the user IP with a fallback method for local development. We then upsert the vote into the database and
   render a flashed message
 * `lesson_route()` checks that a lesson with the provided ID exists and is published. If so, it's rendered. Otherwise, a
-  404 error is thrown.
+  404 error is thrown. If the URL was shared using the share button and the `share=true` query parameters appended
+  accordingly, notify the user that it happened with a flash message.
 * `lesson_feedback_route()` renders the feedback form when the URL is loaded normally, also captures and processes the
   form data when POSTed to. Checks the form data is valid (providing flashed messages if the data is invalid), gets the
   user IP and stores both in the database in the `feedback` table before rendering the success page to the user.
