@@ -10,10 +10,18 @@
         {% for lesson in lessons %}
             <div class="rounded-2xl border p-4 my-2 flex flex-col h-full">
                 <h2 class="text-xl font-bold mb-3">{{ lesson.title }}</h2>
-                <p class="text-lg mb-3">{{ lesson.content }}</p>
-                <ul class="list-none flex flex-row space-x-2 mt-auto">
-                    {# fixme: this gets too squished on mobile #}
-                    <li class="mr-auto">
+                <div class="sm:hidden mr-auto mb-3 -mt-1">
+                        <span class="inline-flex items-center gap-x-1.5 rounded-full {% if lesson.usefulness >= 30 %}bg-green-100 text-green-700{% else %}bg-amber-100 text-amber-800{% endif %} px-2 py-1 text-xs font-medium">
+                          <svg class="h-1.5 w-1.5 {% if lesson.usefulness >= 30 %}fill-green-500{% else %}fill-amber-500{% endif %}"
+                               viewBox="0 0 6 6" aria-hidden="true">
+                            <circle cx="3" cy="3" r="3"></circle>
+                          </svg>
+                          Usefulness: <strong>{{ lesson.usefulness }}</strong>
+                        </span>
+                </div>
+                <p class="text-lg sm:mb-3">{{ lesson.content }}</p>
+                <ul class="list-none flex flex-row space-x-1 sm:space-x-2 mt-auto mx-auto sm:mx-0">
+                    <li class="mr-auto hidden sm:block">
                         <span class="inline-flex items-center gap-x-1.5 rounded-full {% if lesson.usefulness >= 30 %}bg-green-100 text-green-700{% else %}bg-amber-100 text-amber-800{% endif %} px-2 py-1 text-xs font-medium">
                           <svg class="h-1.5 w-1.5 {% if lesson.usefulness >= 30 %}fill-green-500{% else %}fill-amber-500{% endif %}"
                                viewBox="0 0 6 6" aria-hidden="true">
@@ -53,6 +61,7 @@
                             <input type="hidden" name="is_upvote" value="0">
                         </form>
                     </li>
+{#                    <li class="basis-1"></li>#}
                     <li>
                         <a href="/lesson/{{ lesson.id }}"
                            class="js-share-lesson inline-block rounded-full bg-white px-2.5 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
@@ -61,7 +70,7 @@
                     </li>
                     <li>
                         <a href="/lesson/{{ lesson.id }}/feedback"
-                           class="inline-block rounded-full bg-white px-2.5 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                           class="inline-block text-center rounded-full bg-white px-2.5 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
                             Provide Feedback
                         </a>
                     </li>
