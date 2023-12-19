@@ -206,7 +206,7 @@ running `pip install -r requirements.txt`
 
 ## Future ideas
 
-- make the aesthetic more education-y => https://arc.net/folder/2B6B7588-BF29-476E-B839-DB4842C2C93C
+- make the aesthetic even more education-y => https://arc.net/folder/2B6B7588-BF29-476E-B839-DB4842C2C93C
 - dark mode
 - generate sitemap.xml for SEO purposes => https://github.com/h-janes/flask-sitemapper/wiki/Usage#recommended-method
 - explicitly define OG meta tags (etc.) so links always look great on social media
