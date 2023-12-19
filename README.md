@@ -205,8 +205,6 @@ running `pip install -r requirements.txt`
 [//]: # (TODO: walkthru video - up to 3mins Your video should somehow include your project’s title, your name, 
           your city and country, and any other details that you’d like to convey to viewers.)
 
-[//]: # (TODO: ensure the layout is fully responsive)
-
 ## Future ideas
 
 - make the aesthetic even more education-y => https://arc.net/folder/2B6B7588-BF29-476E-B839-DB4842C2C93C
