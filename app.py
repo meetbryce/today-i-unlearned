@@ -16,7 +16,8 @@ def not_found_handler(e):
     :param e:
     :return:
     """
-    return render_template('404.html'), 404
+    today = datetime.date.today()
+    return render_template('404.html', max_year=today.year), 404
 
 
 @app.errorhandler(400)
@@ -26,7 +27,8 @@ def bad_request_handler(e):
     :param e:
     :return:
     """
-    return render_template('400.html'), 400
+    today = datetime.date.today()
+    return render_template('400.html', max_year=today.year), 400
 
 
 @app.route('/', methods=["GET", "POST"])
@@ -168,9 +170,10 @@ def lesson_route(lesson_id: int):
     except IndexError:
         abort(404)
     # if the share button copied the URL to the clipboard, notify the user
+    today = datetime.date.today()
     if 'share' in request.args:
         flash('A link to this page has been copied to your clipboard, ready to share! (They won\'t see this message.)')
-    return render_template('lesson.html', lesson=lesson)
+    return render_template('lesson.html', lesson=lesson, max_year=today.year)
 
 
 @app.route('/lesson/<lesson_id>/feedback', methods=["GET", "POST"])

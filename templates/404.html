@@ -14,21 +14,22 @@
             taught at school.</p>
         <p class="text-base font-semibold leading-7 text-emerald-700 mb-4">Enter the year you graduated to see
             more lessons like this one!</p>
-        <form method="post" action="/" class="flex justify-center mx-auto">
-            <div class="w-1/2">
-                <input type="number" name="year"
-                       class="block text-center text-base w-full rounded-l-full border-0 pl-3 pr-2 py-2.5
-                           text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
-                           focus:ring-2 focus:ring-inset focus:ring-emerald-700 sm:text-base sm:leading-6"
+        <form method="post" action="/" class="flex justify-center mx-auto flex-col sm:flex-row">
+            <div class="sm:w-1/2 mb-3">
+                <input type="number" name="year" min="1900" max="{{ max_year - 1 }}"
+                       class="block text-center text-base w-full rounded-full sm:rounded-l-full sm:rounded-r-none
+                           border-0 px-5 sm:pr-3 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
+                           placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-emerald-700 sm:text-base
+                           sm:leading-6 max-w-md mx-auto sm:max-w-auto sm:mx-0"
                        placeholder="Year you completed high school" aria-label="Year you completed high school"
                        required>
             </div>
             <div>
                 <button type="submit"
-                        class="rounded-r-full bg-emerald-700 pr-6 pl-5 py-3 text-base font-semibold text-white
-                            sm:text-sm shadow-sm hover:bg-emerald-600 focus-visible:outline focus-visible:outline-2
-                            focus-visible:outline-offset-2 focus-visible:outline-emerald-700">
-                    Show me more!
+                        class="rounded-full sm:rounded-l-none sm:rounded-r-full bg-emerald-700 pr-7 pl-6 py-3
+                            font-semibold text-white text-sm shadow-sm hover:bg-emerald-600 focus-visible:outline
+                            focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-700">
+                    Let's go!
                 </button>
             </div>
         </form>

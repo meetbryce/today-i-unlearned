@@ -3,28 +3,28 @@
 {% block title %}Get Started{% endblock %}
 
 {% block body %}
-    <div class="px-6 h-auto my-auto py-24 sm:py-32 lg:px-8">
+    <div class="md:px-6 h-auto my-auto py-24 sm:py-32 lg:px-8">
         <div class="mx-auto max-w-3xl text-center">
             <h2 class="text-4xl font-bold tracking-tight text-gray-900 mb-5 sm:text-6xl">Today I Unlearned</h2>
             <p class="mb-3 text-2xl leading-8 text-gray-600">The place to unlearn all the incorrect things you were
-                taught at school.</p>
+                taught at&nbsp;school.</p>
             <p class="text-base font-semibold leading-7 text-emerald-700 mb-6">Enter the year you graduated below to get
                 started!</p>
-            <form method="post" class="flex justify-center mx-auto">
-                {# fixme: mobile layout needs fixing #}
-                <div class="w-1/2">
+            <form method="post" action="/" class="flex justify-center mx-auto flex-col sm:flex-row">
+                <div class="sm:w-1/2 mb-3">
                     <input type="number" name="year" min="1900" max="{{ max_year - 1 }}"
-                           class="block text-center text-base w-full rounded-l-full border-0 px-5 pr-3 py-2.5
-                           text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400
-                           focus:ring-2 focus:ring-inset focus:ring-emerald-700 sm:text-base sm:leading-6"
+                           class="block text-center text-base w-full rounded-full sm:rounded-l-full sm:rounded-r-none
+                           border-0 px-5 sm:pr-3 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
+                           placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-emerald-700 sm:text-base
+                           sm:leading-6 max-w-md mx-auto sm:max-w-auto sm:mx-0"
                            placeholder="Year you completed high school" aria-label="Year you completed high school"
                            required>
                 </div>
                 <div>
                     <button type="submit"
-                            class="rounded-r-full bg-emerald-700 pr-7 pl-6 py-3 text-base font-semibold text-white
-                            sm:text-sm shadow-sm hover:bg-emerald-600 focus-visible:outline focus-visible:outline-2
-                            focus-visible:outline-offset-2 focus-visible:outline-emerald-700">
+                            class="rounded-full sm:rounded-l-none sm:rounded-r-full bg-emerald-700 pr-7 pl-6 py-3
+                            font-semibold text-white text-sm shadow-sm hover:bg-emerald-600 focus-visible:outline
+                            focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-700">
                         Let's go!
                     </button>
                 </div>
