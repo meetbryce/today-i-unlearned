@@ -10,12 +10,12 @@
 <body class="flex flex-col h-full">
 <header class="py-6 border-b mb-6 md:mb-12">
     <div class="container flex justify-center mx-auto">
-        <a href="/" class="font-semibold text-xl text-gray-900 hover:text-indigo-600">Today I Unlearned</a>
+        <a href="/" class="font-semibold text-xl text-emerald-950 hover:text-emerald-700">Today I Unlearned</a>
     </div>
 </header>
 {% if get_flashed_messages() %}
     <aside class="py-4 px-4 sm:px-6 lg:px-8" id="js-message">
-        <div class="flex justify-center rounded-lg mb-8 -mt-12 gap-x-6 bg-gray-900 px-6 py-2.5 sm:px-3.5" role="alert">
+        <div class="flex justify-center rounded-lg mb-8 -mt-12 gap-x-6 bg-emerald-900 px-6 py-2.5 sm:px-3.5" role="alert">
             <span class="hidden sm:block flashing-message--placeholder"></span>
             <span class="text-sm leading-6 font-semibold text-white">{{ get_flashed_messages() | join(" ") }}</span>
             <button type="button" class="-m-3 flex-none p-3 ml-auto focus-visible:outline-offset-[-4px]"
