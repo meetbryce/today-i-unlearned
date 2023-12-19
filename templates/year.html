@@ -14,11 +14,12 @@
                 <ul class="list-none flex flex-row space-x-2 mt-auto">
                     {# fixme: this gets too squished on mobile #}
                     <li class="mr-auto">
-                        <span class="inline-flex items-center gap-x-1.5 rounded-full bg-green-100 px-2 py-1 text-xs font-medium text-green-700">
-                          <svg class="h-1.5 w-1.5 fill-green-500" viewBox="0 0 6 6" aria-hidden="true">
+                        <span class="inline-flex items-center gap-x-1.5 rounded-full {% if lesson.usefulness >= 30 %}bg-green-100 text-green-700{% else %}bg-amber-100 text-amber-800{% endif %} px-2 py-1 text-xs font-medium">
+                          <svg class="h-1.5 w-1.5 {% if lesson.usefulness >= 30 %}fill-green-500{% else %}fill-amber-500{% endif %}"
+                               viewBox="0 0 6 6" aria-hidden="true">
                             <circle cx="3" cy="3" r="3"></circle>
                           </svg>
-                          Usefulness: <strong>{{ lesson.usefulness }}</strong> {# todo: color code by usefulness? #}
+                          Usefulness: <strong>{{ lesson.usefulness }}</strong>
                         </span>
                     </li>
                     <li>
@@ -28,7 +29,8 @@
                                     {% if lesson.id in up_voted %}title="You have already upvoted this lesson"
                                     disabled{% endif %}
                             >
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" data-slot="icon" class="w-4 h-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
+                                     data-slot="icon" class="w-4 h-4">
                                     <path d="M2.09 15a1 1 0 0 0 1-1V8a1 1 0 1 0-2 0v6a1 1 0 0 0 1 1ZM5.765 13H4.09V8c.663 0 1.218-.466 1.556-1.037a4.02 4.02 0 0 1 1.358-1.377c.478-.292.907-.706.989-1.26V4.32a9.03 9.03 0 0 0 0-2.642c-.028-.194.048-.394.224-.479A2 2 0 0 1 11.09 3c0 .812-.08 1.605-.235 2.371a.521.521 0 0 0 .502.629h1.733c1.104 0 2.01.898 1.901 1.997a19.831 19.831 0 0 1-1.081 4.788c-.27.747-.998 1.215-1.793 1.215H9.414c-.215 0-.428-.035-.632-.103l-2.384-.794A2.002 2.002 0 0 0 5.765 13Z"></path>
                                 </svg>
 
@@ -43,7 +45,8 @@
                                     {% if lesson.id in down_voted %}title="You have already downvoted this lesson"
                                     disabled{% endif %}
                             >
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" data-slot="icon" class="w-4 h-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
+                                     data-slot="icon" class="w-4 h-4">
                                     <path d="M10.325 3H12v5c-.663 0-1.219.466-1.557 1.037a4.02 4.02 0 0 1-1.357 1.377c-.478.292-.907.706-.989 1.26v.005a9.031 9.031 0 0 0 0 2.642c.028.194-.048.394-.224.479A2 2 0 0 1 5 13c0-.812.08-1.605.234-2.371a.521.521 0 0 0-.5-.629H3C1.896 10 .99 9.102 1.1 8.003A19.827 19.827 0 0 1 2.18 3.215C2.45 2.469 3.178 2 3.973 2h2.703a2 2 0 0 1 .632.103l2.384.794a2 2 0 0 0 .633.103ZM14 2a1 1 0 0 0-1 1v6a1 1 0 1 0 2 0V3a1 1 0 0 0-1-1Z"></path>
                                 </svg>
                             </button>

@@ -134,7 +134,7 @@ visiting the suggest a lesson page.
 This shows a collection of lessons, this is used with the `/graduation-year/<year>` route to show all lessons relevant
 to someone who graduated in that year. The lessons are ranked based on their Usefulness score (details below) to show
 the most useful lessons first. Each lesson is presented with the ability to upvote, downvote, share, and provide
-feedback.
+feedback. If a lesson's usefulness is less than a threshold (currently 30), we render it amber instead of green.
 
 ### `tiu.db`
 
