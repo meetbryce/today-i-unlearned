@@ -1,68 +1,128 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" class="h-full">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="/styles.css" rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/styles.css" rel="stylesheet" />
     <title>{% block title %}{% endblock %} • Today I Unlearned</title>
     {% block head %}{% endblock %}
-</head>
-<body class="flex flex-col h-full">
-<header class="py-6 border-b mb-6 md:mb-12">
-    <div class="container flex justify-center mx-auto">
-        <a href="/" class="font-semibold text-xl text-emerald-950 hover:text-emerald-700">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                 stroke="currentColor" data-slot="icon" class="inline-block w-6 h-6 -mt-0.5 mx-0.5">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                      d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5"></path>
-            </svg>&nbsp;Today I Unlearned&nbsp;<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                    stroke-width="1.5" stroke="currentColor" data-slot="icon"
-                                                    class="inline-block w-6 h-6 -mt-0.5 mx-0.5">
-            <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5"></path>
-        </svg>
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-MF0WCPMLCT"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-MF0WCPMLCT");
+    </script>
+  </head>
+  <body class="flex flex-col h-full">
+    <header class="py-6 border-b mb-6 md:mb-12">
+      <div class="container flex justify-center mx-auto">
+        <a
+          href="/"
+          class="font-semibold text-xl text-emerald-950 hover:text-emerald-700"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            data-slot="icon"
+            class="inline-block w-6 h-6 -mt-0.5 mx-0.5"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5"
+            ></path></svg
+          >&nbsp;Today I Unlearned&nbsp;<svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            data-slot="icon"
+            class="inline-block w-6 h-6 -mt-0.5 mx-0.5"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5"
+            ></path>
+          </svg>
         </a>
-    </div>
-</header>
-{% if get_flashed_messages() %}
+      </div>
+    </header>
+    {% if get_flashed_messages() %}
     <aside class="py-4 px-4 sm:px-6 lg:px-8" id="js-message">
-        <div class="flex justify-center rounded-lg mb-2 sm:mb-8 -mt-12 gap-x-6 bg-emerald-900 px-6 py-2.5 sm:px-3.5"
-             role="alert">
-            <span class="hidden sm:block flashing-message--placeholder"></span>
-            <span class="text-sm leading-6 font-semibold text-white">{{ get_flashed_messages() | join(" ") }}</span>
-            <button type="button" class="-m-3 flex-none p-3 ml-auto focus-visible:outline-offset-[-4px]"
-                    id="js-remove-message">
-                <span class="sr-only">Dismiss</span>
-                <svg class="h-5 w-5 text-white" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                    <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z"></path>
-                </svg>
-            </button>
-        </div>
+      <div
+        class="flex justify-center rounded-lg mb-2 sm:mb-8 -mt-12 gap-x-6 bg-emerald-900 px-6 py-2.5 sm:px-3.5"
+        role="alert"
+      >
+        <span class="hidden sm:block flashing-message--placeholder"></span>
+        <span class="text-sm leading-6 font-semibold text-white"
+          >{{ get_flashed_messages() | join(" ") }}</span
+        >
+        <button
+          type="button"
+          class="-m-3 flex-none p-3 ml-auto focus-visible:outline-offset-[-4px]"
+          id="js-remove-message"
+        >
+          <span class="sr-only">Dismiss</span>
+          <svg
+            class="h-5 w-5 text-white"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z"
+            ></path>
+          </svg>
+        </button>
+      </div>
     </aside>
-{% endif %}
-<main class="container mx-auto px-4 h-auto">
-    {% block body %}{% endblock %}
-</main>
-<footer class="mt-auto">
-    <div class="relative">
+    {% endif %}
+    <main class="container mx-auto px-4 h-auto">
+      {% block body %}{% endblock %}
+    </main>
+    <footer class="mt-auto">
+      <div class="relative">
         <div class="absolute inset-0 flex items-center" aria-hidden="true">
-            <div class="w-full border-t border-gray-200"></div>
+          <div class="w-full border-t border-gray-200"></div>
         </div>
-        <div class="relative flex justify-center {% if request.endpoint == 'suggest_route' %}hidden{% endif %}">
-            <a href="/suggest"
-               class="inline-flex items-center gap-x-1.5 rounded-full bg-white px-3 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-                <svg class="-ml-1 -mr-0.5 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor"
-                     aria-hidden="true">
-                    <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z"></path>
-                </svg>
-                Suggest A Lesson
-            </a>
+        <div
+          class="relative flex justify-center {% if request.endpoint == 'suggest_route' %}hidden{% endif %}"
+        >
+          <a
+            href="/suggest"
+            class="inline-flex items-center gap-x-1.5 rounded-full bg-white px-3 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+          >
+            <svg
+              class="-ml-1 -mr-0.5 h-5 w-5 text-gray-400"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z"
+              ></path>
+            </svg>
+            Suggest A Lesson
+          </a>
         </div>
-    </div>
-    <div class="container mx-auto py-4 text-center text-gray-400 text-sm">Copyright &copy; Bryce York. All rights
-        reserved.
-    </div>
-</footer>
-<script src="/script.js"></script>
-</body>
+      </div>
+      <div class="container mx-auto py-4 text-center text-gray-400 text-sm">
+        Copyright &copy; Bryce York. All rights reserved.
+      </div>
+    </footer>
+    <script src="/script.js"></script>
+  </body>
 </html>
